@@ -20,14 +20,14 @@ cd(wd);
 
 
 %%%%%%%%%%%%%%%%%%%% SET UP %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-temp_net = 'networks/All_localmax.txt'
+temp_net = 'networks/MotorHeckner_VOIs.txt'
 Atlas = 'networks/power_nodes.node';
 
 whole_brain = true % True for hole brain, False for sampling from nodes.
 
 node_size = 5 % sphere size
 use_mask = 'FSL025' % '' or 'CAT12_02' or 'FSL025'
-nperm = 1 % n of random nets
+nperm = 10 % n of random nets
 community = ''; % whole network or specific community? Need to provide community assignment. 
                 % Use same value as in community assignment. e.g. 1 if only
                 % want community called 1. Requires column 5 with community info in 'nodes'.

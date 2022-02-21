@@ -31,7 +31,7 @@ while true
     elseif (mean(dist) < (mean(dist_emp) - std(dist_emp)) || mean(dist) > (mean(dist_emp) + std(dist_emp)))
         %fprintf('skipping, mean node distance too large or small\n')
         continue
-    elseif (max(dist) < (max(dist_emp) - std(dist_emp)) || max(dist) > (max(dist_emp) + std(dist_emp)))
+    elseif (max(dist) < (max(dist_emp) - std(dist_emp)) || max(dist) > (max(dist_emp) + std(dist_emp)/2))
         %fprintf('skipping, some nodes are too far\n')
         continue
     else
