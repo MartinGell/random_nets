@@ -10,11 +10,7 @@ function create_net(node_size,use_mask,coord,V,nifti)
 
 sphere_radius = node_size;
 sphere_boundary = '<=';
-if use_mask == 1
-    global_mask_to_use = 'CAT12_02';
-else
-    global_mask_to_use = '';
-end
+
 
 if ischar(coord)
     nets = strsplit(coord,'+');
@@ -38,18 +34,16 @@ end
 
 nROI = size(coord,1);
 
-if isempty(global_mask_to_use)
-    global_mask_to_use = '';
-    %if isfield(NetFlags, 'global_mask_to_use') && ~isempty(NetFlags.global_mask_to_use)
-    %    global_mask_to_use = NetFlags.global_mask_to_use;
-    %end
-end
-%disp(['using global mask: ', global_mask_to_use])
 
 mask = [];
-if ~isempty(global_mask_to_use)
-    [mask, maskfile, VM] = get_mask(global_mask_to_use, '/home/mgell/Work/To_juseless/fingerprint/MaskenEtc/');
-    %fprintf('using global mask: %s\n', maskfile)
+
+switch use_mask
+    case 'CAT12_02'
+        [mask, maskfile, VM] = get_mask(use_mask, '/home/mgell/Work/To_juseless/fingerprint/MaskenEtc/');
+        %fprintf('using global mask: %s\n', maskfile)
+    case 'FSL025'
+        [mask, maskfile, VM] = get_mask(use_mask, '/home/mgell/Work/To_juseless/fingerprint/MaskenEtc/');
+        %fprintf('using global mask: %s\n', maskfile)
 end
 
 if isempty(V)
@@ -122,13 +116,6 @@ if ~isempty(nifti)
     [~] = spm_write_vol(V, Vdat);
 end
 
-
-% calculate Euclid dist between nodes and print nodes closer than 15mm
-dist = coord2dist(coord);
-[row,col] = find(dist>0 & dist<15);
-%[row col]
-%dist(row,col)
-assert(isempty(row),'MINIMUM DISTANCE TOO SMALL');
 end
 
 
